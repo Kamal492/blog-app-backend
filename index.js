@@ -12,7 +12,7 @@ const multer = require("multer")
 const cookieParser = require('cookie-parser');
 const path = require("path");
 const PORT = process.env.PORT || 8000
-const cors = require("cors");
+
 
 dotenv.config();
 app.use(express.json())
@@ -51,7 +51,19 @@ app.use("/blog/subscribe", SubscriberRoute)
 
 app.use(cookieParser());
 
-app.use(cors());
+app.use(function(req, res, next) {
+      // res.header("Access-Control-Allow-Origin", "*");
+      const allowedOrigins = ['http://localhost:3000', 'https://blog-diaries.netlify.app/'];
+      const origin = req.headers.origin;
+      if (allowedOrigins.includes(origin)) {
+           res.setHeader('Access-Control-Allow-Origin', origin);
+      }
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+      res.header("Access-Control-Allow-credentials", true);
+      res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
+      res.setHeader('Cache-Control', 'no-store');
+      next();
+    });
 
 
 app.listen(PORT, () => {
