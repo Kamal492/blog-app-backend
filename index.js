@@ -53,13 +53,6 @@ app.use(cookieParser());
 
 app.use(cors());
 
-app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-store');
-  next();
-});
-
- 
-  
 
 app.listen(PORT, () => {
     console.log("Server is running");
