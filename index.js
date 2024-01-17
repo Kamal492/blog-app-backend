@@ -51,16 +51,8 @@ app.use("/blog/subscribe", SubscriberRoute)
 
 app.use(cookieParser());
 
+app.use(cors());
 
-
-const allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://blog-diaries.netlify.app');
-  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.header('Access-Control-Allow-Credentials', true); // If you are using credentials, set this header
-  next();
-}
-app.use(allowCrossDomain);
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store');
   next();
